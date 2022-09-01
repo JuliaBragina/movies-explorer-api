@@ -70,7 +70,7 @@ const login = (req, res, next) => {
     })
     .then((matched) => {
       if (!matched) {
-        return Promise.reject(new UnauthorizedError('Неверные логин или пароль'));
+        return Promise.reject(new UnauthorizedError('Неправильные логин или пароль'));
       }
       const token = jwt.sign({ id: userId }, JWT_SECRET, { expiresIn: '7d' });
       return res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: 'None' })

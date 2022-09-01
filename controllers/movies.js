@@ -6,14 +6,7 @@ const { ConflictError } = require('../utils/errors/ConflictError');
 const getMovie = (req, res, next) => {
   const userId = req.user.id;
   Movies.find({ owner: userId })
-    .then((movie) => {
-      // console.log(movie);
-      // if (movie === []) {
-      //  res.send({ message: 'Избранных фальмов не найдено.' });
-      //  return;
-      // }
-      res.send(movie);
-    })
+    .then((movie) => res.send(movie))
     .catch(next);
 };
 
