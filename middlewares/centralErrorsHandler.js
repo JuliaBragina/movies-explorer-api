@@ -1,4 +1,4 @@
-const { SERVER_ERROR } = require('../utils/errors/errorCodes');
+const { SERVER_ERROR } = require('../utils/statusCode');
 
 const centralErrorsHandler = (err, req, res, next) => {
   const { statusCode = SERVER_ERROR, message } = err;

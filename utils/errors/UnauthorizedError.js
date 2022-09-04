@@ -1,9 +1,9 @@
-const { AYTH_ERROR } = require('./errorCodes');
+const { AUTH_ERROR } = require('../statusCode');
 
 class UnauthorizedError extends Error {
   constructor(message) {
     super(message);
-    this.statusCode = AYTH_ERROR;
+    this.statusCode = AUTH_ERROR;
   }
 }
 

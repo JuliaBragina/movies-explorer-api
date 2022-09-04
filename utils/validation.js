@@ -1,5 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
-const { url } = require('./url');
+const validator = require('validator');
+const { VALIDATOR_ERROR_IMAGE, VALIDATOR_ERROR_TRAILERLINK, VALIDATOR_ERROR_THUMBNAIL } = require('./messages');
 
 const validSignup = celebrate({
   body: Joi.object().keys({
@@ -19,7 +20,7 @@ const validSignin = celebrate({
 const validUsersMe = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required(),
+    name: Joi.string().required().min(2).max(30),
   }),
 });
 
@@ -30,10 +31,25 @@ const validMovies = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required().length(4),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(url),
-    trailerLink: Joi.string().required().pattern(url),
-    movieId: Joi.string().required(),
-    thumbnail: Joi.string().required().pattern(url),
+    image: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message(VALIDATOR_ERROR_IMAGE);
+    }),
+    trailerLink: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message(VALIDATOR_ERROR_TRAILERLINK);
+    }),
+    movieId: Joi.number().required(),
+    thumbnail: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message(VALIDATOR_ERROR_THUMBNAIL);
+    }),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
@@ -41,7 +57,7 @@ const validMovies = celebrate({
 
 const validMovieId = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().alphanum().length(24),
+    movieId: Joi.string().hex().length(24).required(),
   }),
 });
 
