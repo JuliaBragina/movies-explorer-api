@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/limiter');
@@ -35,6 +36,15 @@ app.use(router);
 app.use(() => {
   throw new NotFoundError('Страница не найдена.');
 });
+
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Authorization', 'Content-type'],
+}));
 
 app.use(errorLogger);
 app.use(errors());
