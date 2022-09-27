@@ -39,6 +39,8 @@ app.use(() => {
 
 app.use(cors({
   origin: [
+    'http://api.prk.movies.nomoredomains.sbs',
+    'https://api.prk.movies.nomoredomains.sbs',
     'http://localhost:3000',
     'https://localhost:3000'],
   credentials: true,
