@@ -36,6 +36,8 @@ app.use(cors({
   origin: [
     'http://api.prk.movies.nomoredomains.sbs',
     'https://api.prk.movies.nomoredomains.sbs',
+    'http://prk.movies.nomoredomains.sbs',
+    'https://prk.movies.nomoredomains.sbs',
     'http://localhost:3000',
     'https://localhost:3000',
     'localhost:3000',
