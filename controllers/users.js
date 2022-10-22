@@ -90,7 +90,7 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-const logout = (req, res) => res.clearCookie('jwt').send({ message: LOGOUT });
+const logout = (req, res) => res.clearCookie('jwt', { sameSite: 'none', secure: true }).send({ message: LOGOUT });
 
 module.exports = {
   createUser,
