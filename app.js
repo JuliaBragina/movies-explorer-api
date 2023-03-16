@@ -34,10 +34,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
   origin: [
-    'http://api.prk.movies.nomoredomains.sbs',
-    'https://api.prk.movies.nomoredomains.sbs',
-    'http://prk.movies.nomoredomains.sbs',
-    'https://prk.movies.nomoredomains.sbs',
+    'http://api.prkmovies.space',
+    'https://api.prkmovies.space',
+    'http://prkmovies.space',
+    'https://prkmovies.space',
     'http://localhost:3000',
     'https://localhost:3000',
     'localhost:3000',
