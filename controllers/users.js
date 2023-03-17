@@ -82,13 +82,15 @@ const login = (req, res, next) => {
         return Promise.reject(new UnauthorizedError(AUTH_ERROR_WRONG_LOGIN_MESSAGE));
       }
       const token = jwt.sign({ id: userId }, JWT_SECRET, { expiresIn: '7d' });
-      return res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: 'None' })
+      return res.cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: 'none', secure: true,
+      })
         .send({ message: SUCCES_USER });
     })
     .catch(next);
 };
 
-const logout = (req, res) => res.clearCookie('jwt').send({ message: LOGOUT });
+const logout = (req, res) => res.clearCookie('jwt', { sameSite: 'none', secure: true }).send({ message: LOGOUT });
 
 module.exports = {
   createUser,

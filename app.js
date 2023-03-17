@@ -32,19 +32,25 @@ mongoose.connect(PATH_MONGO, {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(router);
-app.use(() => {
-  throw new NotFoundError('Страница не найдена.');
-});
-
 app.use(cors({
   origin: [
+    'http://api.prkmovies.space',
+    'https://api.prkmovies.space',
+    'http://prkmovies.space',
+    'https://prkmovies.space',
     'http://localhost:3000',
-    'https://localhost:3000'],
+    'https://localhost:3000',
+    'localhost:3000',
+  ],
   credentials: true,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
   allowedHeaders: ['Authorization', 'Content-type'],
 }));
+
+app.use(router);
+app.use(() => {
+  throw new NotFoundError('Страница не найдена.');
+});
 
 app.use(errorLogger);
 app.use(errors());
